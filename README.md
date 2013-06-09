@@ -40,7 +40,6 @@
 ##Array
 ###Array.create(any...)
 ###Array.union(array...)
-###Array.()
 ###array.type()
 ###array.empty()
 ###array.notEmpty()
