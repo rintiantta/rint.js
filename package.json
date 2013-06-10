@@ -1,0 +1,17 @@
+{
+  "name": "rint",
+  "version": "0.0.0",
+  "description": "Create properties and methods to it's prototype.\r ###Object.extend()\r Create properties and methods to it.",
+  "main": "rint.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rintiantta/rint.js.git"
+  },
+  "author": "rintiantta",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "100886def6f7c32356e37f1a42cf6acfaa147a9a"
+}

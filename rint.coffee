@@ -9,8 +9,22 @@ Object.defineProperties Object.prototype,
       for key, item of object
         Object.defineProperty @, key,
           value: item
+  combine:
+    value: (objects) ->
+      output = {}
+      objects.forEach () ->
+        for key, item of objects
+          output[key] = item
+      return output
 
-
+#  ____  _     _           _   
+# / __ \| |   (_)         | |  
+#| |  | | |__  _  ___  ___| |_ 
+#| |  | | '_ \| |/ _ \/ __| __|
+#| |__| | |_) | |  __/ (__| |_ 
+# \____/|_.__/| |\___|\___|\__|
+#            _/ |              
+#           |__/               
 Object.define
   type: () ->
     return "object"
@@ -32,13 +46,21 @@ Object.define
         output.push(item)
     return output
 
+#  _____ _        _             
+# / ____| |      (_)            
+#| (___ | |_ _ __ _ _ __   __ _ 
+# \___ \| __| '__| | '_ \ / _` |
+# ____) | |_| |  | | | | | (_| |
+#|_____/ \__|_|  |_|_| |_|\__, |
+#                          __/ |
+#                         |___/ 
 String.define
   type: () ->
     return "string"
   startWith: (string) ->
     return @indexOf(string) is 0
   endWith: (string) ->
-    return @lastIndexOf(string) is @length - 1
+    return @lastIndexOf(string) is (@length - string.length)
   contain: (string) ->
     return @indexOf(string) isnt -1
   notContain: (string) ->
@@ -59,7 +81,13 @@ String.define
     return not @empty()
   toNumber: () ->
     return Number(@)
-    
+
+# ____              _                  
+#|  _ \            | |                 
+#| |_) | ___   ___ | | ___  __ _ _ __  
+#|  _ < / _ \ / _ \| |/ _ \/ _` | '_ \ 
+#| |_) | (_) | (_) | |  __/ (_| | | | |
+#|____/ \___/ \___/|_|\___|\__,_|_| |_|                                  
 Boolean.define
   type: () ->
     return "boolean"
@@ -75,6 +103,13 @@ Number.define
     return Math.ceil(@)
   round: () ->
     return Math.round(@)
+
+# _   _                 _               
+#| \ | |               | |              
+#|  \| |_   _ _ __ ___ | |__   ___ _ __ 
+#| . ` | | | | '_ ` _ \| '_ \ / _ \ '__|
+#| |\  | |_| | | | | | | |_) |  __/ |   
+#|_| \_|\__,_|_| |_| |_|_.__/ \___|_|   
 Number.extend
   random: (a, b) ->
     if b
@@ -87,9 +122,34 @@ Number.extend
     else
       return Math.random() * a
 
+# ______                _   _             
+#|  ____|              | | (_)            
+#| |__ _   _ _ __   ___| |_ _  ___  _ __  
+#|  __| | | | '_ \ / __| __| |/ _ \| '_ \ 
+#| |  | |_| | | | | (__| |_| | (_) | | | |
+#|_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|
 Function.define
   type: () ->
     return "function"
+  startAfter: (time, callback) ->
+    ms = 0
+    if time.type() is "string"
+      if time.endWith("s") or time.endWith("sec")
+          ms = parseInt(time) * 1000
+      else if time.endWith("ms")
+          ms = parseInt(time)
+      else
+        throw "time string error"
+    else if time.type() is "number"
+      ms = time
+    @timerId = [] if not @timerId
+    @timerId.push(setTimeout(() =>
+      @()
+      callback() if callback
+    , ms))
+  stopAfter: () ->
+    @timerId.forEach (id) ->
+      clearTimeout(id)
 Function.extend
   nothing: () ->
   parallel: (tasks, callback) ->
@@ -133,6 +193,13 @@ Function.extend
   next: (callback) ->
     setTimeout(callback, 0)
 
+#    /\                         
+#   /  \   _ __ _ __ __ _ _   _ 
+#  / /\ \ | '__| '__/ _` | | | |
+# / ____ \| |  | | | (_| | |_| |
+#/_/    \_\_|  |_|  \__,_|\__, |
+#                          __/ |
+#                         |___/ 
 Array.define
   type: () ->
     return "array"
@@ -173,3 +240,49 @@ Array.extend
       for item in array
         output.push item
     return output
+
+# _____  _       _   
+#|  __ \(_)     | |  
+#| |__) |_ _ __ | |_ 
+#|  _  /| | '_ \| __|
+#| | \ \| | | | | |_ 
+#|_|  \_\_|_| |_|\__|
+r = R = rint = Rint = {}
+Rint.global = null
+Rint.env = if window then "browser" else "node"
+Rint.sys = (() ->
+  if Rint.env is "node"
+    Rint.global = global
+    return process.env.os
+  else
+    Rint.global = window
+    if navigator.userAgent.contain("MSIE")
+      return "internet explorer"
+    else if window.chrome
+      return "chrome"
+    else if  navigator.userAgent.contain("Safari")
+      return "safari"
+    else if  navigator.userAgent.contain("Firefox")
+      return "firefox"
+    else if  navigator.userAgent.contain("Opera")
+      return "opera"
+)()
+Rint.isNode = () ->
+  return if Rint.env is "node" then true else false
+Rint.isBrowser = () ->
+  return !Rint.isNode()
+Rint.isInternetExplorer = () ->
+  return if Rint.sys is "internet explorer" then true else false
+Rint.isIE = () ->
+  return Rint.isInternetExplorer()
+Rint.isChrome = () ->
+  return if Rint.sys is "chrome" then true else false
+Rint.isSafari = () ->
+  return if Rint.sys is "safari" then true else false
+Rint.isFirefox = () ->
+  return if Rint.sys is "firefox" then true else false
+Rint.isFF = () ->
+  return Rint.isFirefox()
+Rint.isOpera = () ->    
+  return if Rint.sys is "opera" then true else false
+    

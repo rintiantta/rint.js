@@ -4,6 +4,8 @@
 Create properties and methods to it's prototype.
 ###Object.extend()
 Create properties and methods to it.
+###Object.combine(object...)
+Combine object and return new object.
 
 ##Object
 ###object.type()
@@ -53,6 +55,11 @@ return "number"
 ###Function.sequence(tasks, callback)
 ###function.type()
 return "function"
+###function.startAfter(time)
+###function.startAfter(time, callback)
+`1sec` == `1000ms` == `1000`
+###function.stopAfter()
+###function.stopAfter(id)
 
 ##Array
 ###Array.create(any...)
@@ -70,3 +77,20 @@ return "array"
 ###array.compact()
 ###array.contain(any)
 ###array.size()
+
+##Rint, rint, R, r
+###r.global
+if node.js => global
+if browser => window
+###r.sys
+if node.js => process.env.os
+if browser => `internet explorer`, `chrome`, `safari`, `firefox`, `opera`
+###r.isNode()
+###r.isBrowser()
+###r.isInternetExplorer()
+###r.isIE()
+###r.isChrome()
+###r.isSafari()
+###r.isFirefox()
+###r.isFF()
+###r.isOpera()
