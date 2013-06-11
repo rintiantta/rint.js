@@ -66,10 +66,9 @@ String.define
   notContain: (string) ->
     return not @contain(string)
   containAll: (array) ->
-    output = true
     for item in array
-      break if @notContain(item)
-    return output
+      return false if @notContain(item)
+    return true
   containSome: (array) ->
     for item in array
       return true if @contain(item)
