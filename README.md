@@ -78,6 +78,21 @@ return "array"
 ###array.contain(any)
 ###array.size()
 
+##Date
+###Date.mask
+-normal: "ddd mmm dd yyyy HH:MM:ss"
+-shortDate: "m/d/yy",
+-mediumDate: "mmm d, yyyy",
+-longDate: "mmmm d, yyyy",
+-fullDate: "dddd, mmmm d, yyyy",
+-shortTime: "h:MM TT",
+-mediumTime: "h:MM:ss TT",
+-longTime: "h:MM:ss TT Z",
+-isoDate: "yyyy-mm-dd",
+-isoTime: "HH:MM:ss",
+-isoDateTime: "yyyy-mm-dd'T'HH:MM:ss",
+###date.format(format, isUTC)
+
 ##Rint, rint, R, r
 ###r.global
 if node.js => global
@@ -94,3 +109,7 @@ if browser => `internet explorer`, `chrome`, `safari`, `firefox`, `opera`
 ###r.isFirefox()
 ###r.isFF()
 ###r.isOpera()
+
+##Other
+###log()
+same with `console.log()`
